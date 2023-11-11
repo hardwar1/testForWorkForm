@@ -1,0 +1,122 @@
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 6;
+  padding: 10px;
+  transform: translate(-50%, -50%);
+}
+
+.form {
+  border-radius: 10px;
+  width: 800px;
+  max-width: 100%;
+  background-color: #fff;
+}
+
+.top {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 7px 15px;
+}
+
+.title {
+  font-size: 24px;
+}
+
+.closeButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 0;
+  width: 50px;
+  height: 100%;
+  background-color: transparent;
+
+  &::after,
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 3px;
+    width: 18px;
+    height: 4px;
+    background-color: #3a3939;
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  &::before {
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+}
+
+.middle {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 15px;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  gap: 20px;
+}
+
+.namesRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.labelSchool {
+  width: 100%;
+  max-width: 180px;
+}
+
+.colorsWrapper {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 230px;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 48%;
+    right: 7px;
+    border-right: 2px solid #424141;
+    border-bottom: 2px solid #424141;
+    width: 7px;
+    height: 7px;
+    transform: translateY(-50%) rotate(45deg);
+  }
+}
+
+.colorsInput {
+  padding-right: 20px;
+  border: 0;
+  border-radius: 4px;
+  width: 45px;
+}
+
+.daysRow {
+  display: flex;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  height: 42px;
+}
+
+.daysButtons {
+  display: flex;
+  height: 100%;
+}
+
+.daysButton {
+  padding: 5px;
+  border: 0;
+  border-radius: 0;
+  min-width: 76px;
+  background-color: transparent;
+  border-right: 1px solid #ccc;
+}

@@ -1,0 +1,34 @@
+.week {
+  display: flex;
+  width: 100%;
+}
+
+.item {
+  width: calc(100% / 7);
+
+  &:not(:last-child) {
+    border-right: 1px solid #ccc;
+  }
+}
+
+.dayWrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.checkbox:focus + .day {
+}
+
+.checkbox:checked + .day {
+  background-color: rgb(152, 152, 238);
+  color: white;
+}
+
+.day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  transition: color 0.3s, background-color 0.3s;
+}
