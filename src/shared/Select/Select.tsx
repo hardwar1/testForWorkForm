@@ -2,15 +2,16 @@ import { useEffect, useRef, useState } from 'react';
 import styles from './select.module.scss';
 
 interface ISelect {
-  current?: string;
+  defaultValue?: string;
   list: string[];
   name: string;
   width?: number;
+  text?: string;
 }
 
-export function Select({ list, current = list[0], name, width }: ISelect) {
+export function Select({ list, defaultValue = list[0], text = list[0], name, width }: ISelect) {
   const [openMenu, setOpenMenu] = useState(false);
-  const [inputValue, setInputValue] = useState(current);
+  const [inputValue, setInputValue] = useState(defaultValue);
   const [height, setHeight] = useState(0);
   const listRef = useRef<HTMLUListElement>(null);
   const selectRef = useRef<HTMLDivElement>(null);
@@ -57,7 +58,7 @@ export function Select({ list, current = list[0], name, width }: ISelect) {
   return (
     <div
       className={styles.select}
-      style={{ width: width }}
+      style={{ width: width}}
       ref={selectRef}
     >
       <input
@@ -80,12 +81,12 @@ export function Select({ list, current = list[0], name, width }: ISelect) {
             closeMenu()
           }
         }}>
-        {inputValue}
+        {inputValue.length > 0 ? inputValue : text}
       </button>
 
       <div
         className={styles.hideWrapper}
-        style={{ height: height }}
+        style={height > 0 ? { height: height,  zIndex: 5} : { height: 0,  zIndex: 0}}
       >
         <ul
           className={styles.selectList}

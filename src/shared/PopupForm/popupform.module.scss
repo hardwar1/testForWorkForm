@@ -100,6 +100,16 @@
   width: 45px;
 }
 
+.hoursRow {
+  gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.hoursRow > *[class] {
+  width: max(calc((100% - 40px) / 3), 200px);
+}
+
 .daysRow {
   display: flex;
   border: 1px solid #ccc;
@@ -119,4 +129,42 @@
   min-width: 76px;
   background-color: transparent;
   border-right: 1px solid #ccc;
+}
+
+.selectsRow {
+  display: flex;
+  gap: 20px;
+
+  & > *[class] {
+    width: max(calc(((100% - 40px) / 3) * 2 + 20px), 200px);
+
+    &:last-child {
+      width: max(calc((100% - 40px) / 3), 200px);
+    }
+  }
+}
+
+.textBox {
+  padding: 15px;
+  background-color: pink;
+}
+
+.bottom {
+  padding: 15px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 20px;
+}
+
+.cancellation {
+  background-color: transparent;
+  border: 0;
+}
+
+.submit {
+  border: 2px solid #000;
+  border-radius: 4px;
+  background-color: transparent;
+  padding: 5px 10px;
 }

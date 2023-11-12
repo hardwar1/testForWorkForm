@@ -3,8 +3,15 @@ import { Overlay } from '../Overlay';
 import styles from './popupform.module.scss';
 import { WeekDays } from './WeekDays';
 import { Select } from '../Select';
+import { InputNumberItem } from '../InputNumberItem';
+import { DoubleInput } from '../DoubleInput';
 
-const hoursListSelect = ['Академические', 'Астрономические']
+const hoursListSelect = ['Академические', 'Астрономические'];
+const breaksListSelect = ['Без перерыва', 'С блек джеком и дамами', 'C дремотой'];
+const teachersListSelect = ['Рубенович', 'Петрович', 'Петрович', 'Сан Саныч', 'Рукожопыч'];
+const auditoriumListSelect = ['101', '202', '303', '666'];
+
+const today = `${(new Date).getFullYear()}-${(new Date).getMonth()}-${(new Date).getDate()}`
 
 
 export function PopupForm() {
@@ -25,7 +32,7 @@ export function PopupForm() {
               Редактирование расписания
             </h2>
 
-            <button className={styles.closeButton} aria-label="закрыть"></button>
+            <button className={styles.closeButton} aria-label="закрыть" type="button"></button>
           </div>
 
           <div className={styles.middle}>
@@ -39,7 +46,6 @@ export function PopupForm() {
                   required
                 />
               </label>
-
 
               <label className={styles.colorsWrapper}>
                 <span className={styles.colorsText}>
@@ -57,7 +63,18 @@ export function PopupForm() {
             </div>
 
             <div className={styles.hoursRow}>
-              <Select list={hoursListSelect} name='hoursType'/>
+              <Select list={hoursListSelect} name='hoursType' />
+
+              <InputNumberItem text="Всего часов" name="totalHours" />
+
+              <DoubleInput
+                name="date"
+                ariaLabelLeft="дата начала"
+                ariaLabelRight="дата окончания"
+                defaultValue={today}
+                inputType='date'
+              />
+
             </div>
 
             <div className={styles.daysRow}>
@@ -81,10 +98,51 @@ export function PopupForm() {
 
               <WeekDays />
             </div>
+
+            <div className={styles.hoursRow}>
+              <Select list={breaksListSelect} name='isBreaks' />
+
+              <InputNumberItem text="Часов в день" name="totalHours" />
+
+              <DoubleInput
+                name="date"
+                ariaLabelLeft="дата начала"
+                ariaLabelRight="дата окончания"
+                defaultValue="07:00"
+                inputType='string'
+              />
+
+            </div>
+
+            <div className={styles.selectsRow}>
+              <Select
+                list={teachersListSelect}
+                name='teacher'
+                defaultValue=""
+                text='Выберите преподавателя на это время'
+              />
+
+              <Select
+                list={auditoriumListSelect}
+                name='auditorium'
+                defaultValue=''
+                text='Аудитория'
+              />
+            </div>
+
+            <p className={styles.textBox}>
+              Выбор <b>преподавателя</b> и <b>аудитории</b> не обязателен.
+            </p>
           </div>
 
           <div className={styles.bottom}>
+            <button className={styles.cancellation} type='button'>
+              Отмена
+            </button>
 
+            <button className={styles.submit} type='submit'>
+              Добавить расписание
+            </button>
           </div>
 
         </form>

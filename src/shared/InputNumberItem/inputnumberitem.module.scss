@@ -1,0 +1,63 @@
+.inputNumberItem {
+  display: flex;
+  height: 42px;
+}
+
+.inputNumberButton {
+  position: relative;
+  border: 0;
+  border-radius: 4px 0 0 4px;
+  width: 42px;
+  background-color: rgb(17, 121, 249);
+  flex-shrink: 0;
+
+  &::after,
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 9px;
+    height: 1px;
+    background-color: #fff;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.inputNumberButtonPlus {
+  border-radius: 0 4px 4px 0;
+
+  &::before {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+}
+
+.inputNumberLabel {
+  display: flex;
+  flex-shrink: 1;
+}
+
+.inputNumberInput {
+  border: 1px solid #ccc;
+  border-left: 0;
+  padding: 5px 10px;
+  text-align: center;
+  flex-shrink: 1;
+  width: calc(100% - 42px);
+}
+
+.inputNumberText {
+  border: 1px solid #ccc;
+  border-left: 0;
+  border-right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 10px;
+  padding: 5px;
+  line-height: 1;
+  flex-shrink: 0;
+  width: 45px;
+  background-color: #ebf1fb;
+}
