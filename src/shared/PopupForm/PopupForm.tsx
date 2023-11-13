@@ -25,16 +25,9 @@ export function PopupForm() {
   const [hourIs, setHourIs] = useState(45);
   const [hoursInDay, setHoursInDay] = useState(1);
   const [isBreaks, setIsBreaks] = useState(0);
-  const [submitObj, setSubmitObj] = useState<any>({});
   const [weekObj, setWeekObj] = useState<any>({});
 
   const refForm = useRef(null);
-
-  useEffect(() => {
-    // console.log(weekObj);
-    submitObj.weekDays = weekObj;
-    if (submitObj.weekDays) console.log(submitObj);
-  }, [submitObj, weekObj])
 
   const closePopup = () => { }
 
@@ -52,18 +45,18 @@ export function PopupForm() {
       }
     }
 
-    setSubmitObj(submitObject);
+    submitObject.weekDays = weekObj;
+
+    console.log(submitObject);
   }
 
   function setWeek(week: boolean[]) {
     const obj: any = {}
-    console.log(week);
     for (let i = 0; i < week.length; i++) {
       obj[daysText[i]] = week[i];
     }
 
     setWeekObj(obj);
-    console.log(obj);
   }
 
   const selectChangeHour = (str: string) => {
