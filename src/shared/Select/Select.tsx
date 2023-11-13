@@ -7,9 +7,11 @@ interface ISelect {
   name: string;
   width?: number;
   text?: string;
+  onSelectChange?: (item: string) => void;
+  required?: boolean;
 }
 
-export function Select({ list, defaultValue = list[0], text = list[0], name, width }: ISelect) {
+export function Select({ list, defaultValue = list[0], text = list[0], name, width, onSelectChange, required = false }: ISelect) {
   const [openMenu, setOpenMenu] = useState(false);
   const [inputValue, setInputValue] = useState(defaultValue);
   const [height, setHeight] = useState(0);
@@ -46,9 +48,9 @@ export function Select({ list, defaultValue = list[0], text = list[0], name, wid
     }, 301)
   }
 
-
   const menuButtonClick = (item: string) => {
-    setInputValue(item)
+    setInputValue(item);
+    if(onSelectChange) onSelectChange(item);
     setHeight(0);
     setTimeout(() => {
       setOpenMenu(false)
@@ -57,8 +59,8 @@ export function Select({ list, defaultValue = list[0], text = list[0], name, wid
 
   return (
     <div
-      className={styles.select}
-      style={{ width: width}}
+      className={`${styles.select} ${height > 0 ? styles.selectActive : ''}`}
+      style={{ width: width }}
       ref={selectRef}
     >
       <input
@@ -66,7 +68,7 @@ export function Select({ list, defaultValue = list[0], text = list[0], name, wid
         type="text"
         name={name}
         aria-label=''
-        required
+        required={required}
         defaultValue={inputValue}
       />
 
@@ -86,7 +88,7 @@ export function Select({ list, defaultValue = list[0], text = list[0], name, wid
 
       <div
         className={styles.hideWrapper}
-        style={height > 0 ? { height: height,  zIndex: 5} : { height: 0,  zIndex: 0}}
+        style={height > 0 ? { height: height, zIndex: 5 } : { height: 0, zIndex: 0 }}
       >
         <ul
           className={styles.selectList}

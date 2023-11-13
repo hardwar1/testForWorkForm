@@ -1,21 +1,40 @@
-import { useState } from 'react';
+import { FormEvent, useEffect, useRef, useState } from 'react';
 import { Overlay } from '../Overlay';
 import styles from './popupform.module.scss';
 import { WeekDays } from './WeekDays';
 import { Select } from '../Select';
 import { InputNumberItem } from '../InputNumberItem';
-import { DoubleInput } from '../DoubleInput';
+import { DoubleTimeInput } from '../DoubleInput/DoubleTimeInput';
+import { DoubleDateInput } from '../DoubleInput/DoubleDateInput';
 
 const hoursListSelect = ['Академические', 'Астрономические'];
 const breaksListSelect = ['Без перерыва', 'С блек джеком и дамами', 'C дремотой'];
-const teachersListSelect = ['Рубенович', 'Петрович', 'Петрович', 'Сан Саныч', 'Рукожопыч'];
+const teachersListSelect = ['Рубенович', 'Петрович', 'Сан Саныч', 'Рукожопыч'];
 const auditoriumListSelect = ['101', '202', '303', '666'];
+
+export const daysText = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
+export const clearWeek = [false, false, false, false, false, false, false];
+const days1 = [true, false, true, false, true, false, false];
+const days2 = [false, true, false, true, false, false, false];
 
 const today = `${(new Date).getFullYear()}-${(new Date).getMonth()}-${(new Date).getDate()}`
 
-
 export function PopupForm() {
   const [inputColorValue, setInputColorValue] = useState('#ffffff');
+  const [weekDaysOn, setWeekDaysOn] = useState(clearWeek);
+  const [hourIs, setHourIs] = useState(45);
+  const [hoursInDay, setHoursInDay] = useState(1);
+  const [isBreaks, setIsBreaks] = useState(0);
+  const [submitObj, setSubmitObj] = useState<any>({});
+  const [weekObj, setWeekObj] = useState<any>({});
+
+  const refForm = useRef(null);
+
+  useEffect(() => {
+    // console.log(weekObj);
+    submitObj.weekDays = weekObj;
+    if (submitObj.weekDays) console.log(submitObj);
+  }, [submitObj, weekObj])
 
   const closePopup = () => { }
 
@@ -23,10 +42,58 @@ export function PopupForm() {
     setInputColorValue(e.target.value)
   }
 
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    const submitObject: any = {};
+    for (const item of e.target as any) {
+      if (item.name && item.name !== 'weekDay') {
+        submitObject[item.name] = item.value;
+      }
+    }
+
+    setSubmitObj(submitObject);
+  }
+
+  function setWeek(week: boolean[]) {
+    const obj: any = {}
+    console.log(week);
+    for (let i = 0; i < week.length; i++) {
+      obj[daysText[i]] = week[i];
+    }
+
+    setWeekObj(obj);
+    console.log(obj);
+  }
+
+  const selectChangeHour = (str: string) => {
+    if (str === 'Астрономические') {
+      setHourIs(60)
+    }
+
+    if (str === 'Академические') {
+      setHourIs(45)
+    }
+  }
+
+  const selectChangeBreaks = (str: string) => {
+    if (str === 'Без перерыва') {
+      setIsBreaks(0)
+    }
+
+    if (str === 'С блек джеком и дамами') {
+      setIsBreaks(10)
+    }
+
+    if (str === 'C дремотой') {
+      setIsBreaks(15)
+    }
+  }
+
   return (
     <>
       <div className={styles.popup}>
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={handleSubmit} ref={refForm}>
           <div className={styles.top}>
             <h2 className={styles.title}>
               Редактирование расписания
@@ -63,11 +130,11 @@ export function PopupForm() {
             </div>
 
             <div className={styles.hoursRow}>
-              <Select list={hoursListSelect} name='hoursType' />
+              <Select list={hoursListSelect} name='hoursType' onSelectChange={selectChangeHour} />
 
-              <InputNumberItem text="Всего часов" name="totalHours" />
+              <InputNumberItem text="Всего часов" name="totalHours" min={1} />
 
-              <DoubleInput
+              <DoubleDateInput
                 name="date"
                 ariaLabelLeft="дата начала"
                 ariaLabelRight="дата окончания"
@@ -82,7 +149,7 @@ export function PopupForm() {
                 <button
                   className={styles.daysButton}
                   type='button'
-                  onClick={() => { }}
+                  onClick={() => setWeekDaysOn([...days1])}
                 >
                   ПН/СР/ПТ
                 </button>
@@ -90,22 +157,31 @@ export function PopupForm() {
                 <button
                   className={styles.daysButton}
                   type='button'
-                  onClick={() => { }}
+                  onClick={() => setWeekDaysOn([...days2])}
                 >
                   ВТ/ЧТ
                 </button>
               </div>
 
-              <WeekDays />
+              <WeekDays valueArray={weekDaysOn} setWeek={setWeek} />
             </div>
 
             <div className={styles.hoursRow}>
-              <Select list={breaksListSelect} name='isBreaks' />
+              <Select list={breaksListSelect} name='isBreaks' onSelectChange={selectChangeBreaks} />
 
-              <InputNumberItem text="Часов в день" name="totalHours" />
+              <InputNumberItem
+                onInputChange={setHoursInDay}
+                text="Часов в день"
+                name="hoursInDay"
+                min={1}
+                max={10}
+              />
 
-              <DoubleInput
-                name="date"
+              <DoubleTimeInput
+                isBreaks={isBreaks}
+                hourIs={hourIs}
+                hoursInDay={hoursInDay}
+                name="time"
                 ariaLabelLeft="дата начала"
                 ariaLabelRight="дата окончания"
                 defaultValue="07:00"

@@ -7,10 +7,10 @@ interface IDoubleInput {
   name: string;
   defaultValue: string;
   inputType?: HTMLInputTypeAttribute;
+  hourTime?: boolean;
 }
 
-
-export function DoubleInput({name, ariaLabelLeft, ariaLabelRight, defaultValue, inputType="text"}: IDoubleInput) {
+export function DoubleDateInput({ name, ariaLabelLeft, ariaLabelRight, defaultValue, inputType = "text"}: IDoubleInput) {
   const [startValue, setStartValue] = useState(defaultValue);
   const [endValue, setEndValue] = useState(defaultValue);
 
@@ -21,10 +21,12 @@ export function DoubleInput({name, ariaLabelLeft, ariaLabelRight, defaultValue, 
         type={inputType}
         name={`${name}Start`}
         aria-label={ariaLabelLeft}
-        defaultValue={startValue}
-        onChange={(e)=> setStartValue(e.target.value)}
+        value={startValue}
+        onChange={(e) => setStartValue(e.target.value)}
         required
       />
+
+
 
       <span className={styles.doubleInputText}>
         до
@@ -35,8 +37,8 @@ export function DoubleInput({name, ariaLabelLeft, ariaLabelRight, defaultValue, 
         type={inputType}
         name={`${name}End`}
         aria-label={ariaLabelRight}
-        defaultValue={endValue}
-        onChange={(e)=> setEndValue(e.target.value)}
+        value={endValue}
+        onChange={(e) => setEndValue(e.target.value)}
         required
       />
 
