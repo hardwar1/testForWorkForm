@@ -42,7 +42,7 @@ ol {
   margin: -1px;
   padding: 0;
   border: 0;
-}
+} 
 
 body {
   display: flex;
@@ -67,3 +67,5 @@ body {
   height: 42px;
   border: 1px solid #ccc;
 }
+
+

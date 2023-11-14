@@ -78,6 +78,7 @@ export function Select({
         aria-label=''
         required={required}
         defaultValue={inputValue}
+        disabled
       />
 
       <button
