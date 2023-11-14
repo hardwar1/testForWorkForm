@@ -57,6 +57,17 @@
   height: 42px;
   text-align: left;
   background-color: #fff;
+  transition: background-color 0.3s;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background-color: rgb(250, 238, 216);
+    }
+  }
+
+  &:active {
+    background-color: rgb(119, 106, 83);
+  }
 }
 
 .selectList {

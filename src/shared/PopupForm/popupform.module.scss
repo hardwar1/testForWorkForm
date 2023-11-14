@@ -8,7 +8,8 @@
   max-width: 800px;
   transform: translate(-50%, -50%);
   max-height: calc(100vh - 100px);
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .form {
@@ -115,6 +116,13 @@
   border: 0;
   border-radius: 4px;
   width: 45px;
+  transition: background-color 0.3s;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background-color: rgb(250, 238, 216);
+    }
+  }
 }
 
 .hoursRow {
