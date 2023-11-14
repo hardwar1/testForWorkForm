@@ -30,10 +30,6 @@ export function DoubleDateInput({
   const [endValue, setEndValue] = useState('выберите дни');
 
   useEffect(() => {
-    // console.log('hoursInDay', hoursInDay);
-    // console.log('hoursAll', hoursAll);
-    // console.log('startValue', startValue);
-
     const studyDaysWeekArray: number[] = [];
     if (weekDaysOn[6]) studyDaysWeekArray.push(0);
     for (let i = 0; i < weekDaysOn.length - 1; i++) {
@@ -46,24 +42,19 @@ export function DoubleDateInput({
     }
 
     const calcStudyDays = Math.ceil(hoursAll / hoursInDay);
-    // console.log('calcStudyDays', calcStudyDays);
 
     const [YYYY, MM, DD] = startValue.split('-').map(Number);
 
-    // console.log(DD, MM, YYYY);
     const startDay = new Date(YYYY, (MM - 1), DD);
     getFinalDate(startDay);
 
     const studyDaysOfThisWeek = studyDaysWeekArray.filter(item => item >= startDay.getDay()).length;
-    // console.log('studyDaysOfThisWeek', studyDaysOfThisWeek);
 
     let endWeekDay: number;
 
     if (calcStudyDays <= studyDaysOfThisWeek) {
-      // console.log('studyDaysWeekArray', studyDaysWeekArray);
 
       endWeekDay = studyDaysWeekArray[studyDaysWeekArray.length - studyDaysOfThisWeek + calcStudyDays - 1];
-      // console.log('endWeekDay', endWeekDay);
 
       endWeekDay - startDay.getDay();
       const endDate = new Date(YYYY, (MM - 1), DD + endWeekDay - startDay.getDay());
@@ -83,12 +74,6 @@ export function DoubleDateInput({
       studyDaysAtLastWeek = calcStudyDays - calcStudyWeeks * studyDaysWeekArray.length - studyDaysOfThisWeek;
     }
     
-    // console.log('studyDaysAtLastWeek', studyDaysAtLastWeek);
-    // console.log('calcStudyWeeks', calcStudyWeeks);
-
-    // studyDaysAtLastWeek = (количество рабочих дней) - (количество недель рабочих)*(количество раб дней в неделю) - количество раб дней в первой неделе
-
-    // console.log('6 - startDay.getDay()', 6 - startDay.getDay());
     const calendarDays = 6 - startDay.getDay() + 1
       + studyDaysWeekArray[studyDaysAtLastWeek - 1]
       + calcStudyWeeks * 7;
