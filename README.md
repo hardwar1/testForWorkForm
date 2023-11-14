@@ -1,27 +1,27 @@
-# React + TypeScript + Vite
+# React + TypeScript + Vite + SCSS + input-type-mask
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+собственные тесты показывают что все поля в форме работают согласно штатному предписанию 24/7, все выявленные проблемы были доделаны к 12:00 14.11.2023
 
-Currently, two official plugins are available:
+РЕЗУЛЬТАТ работы формы можно увидеть: 
+при отправке формы в консоль выводятся все поля в одном объекте 
+( остается конвертировать в json отправить на сервер)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+ИНФА ПО СЕЛЕКТУ перерыва:
+Заложены значения
+0 (без перерыва)
+10 (с блек джеком)
+15 (с дремотой)
+Работает только когда выбрано более 1 "часа в день"
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+______________________________________________________________________________
 
-- Configure the top-level `parserOptions` property like this:
+В БУДУЩЕМ прежде чем положить в портфолио планируется:
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+1. навести марафет (ховер фокус эктив дисаблед и что нибудь по вкусу)
+2. закрытие окна (анимация )
+3. возможно положу на фон какое нибудь видео, например видео в котором непрерывно пишется код 
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
+НЕ планируется
+  Валидация (не планирую усложнять юзабилити тем кто собирает просто потыкать по форме)
