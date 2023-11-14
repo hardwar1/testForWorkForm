@@ -11,7 +11,15 @@ interface ISelect {
   required?: boolean;
 }
 
-export function Select({ list, defaultValue = list[0], text = list[0], name, width, onSelectChange, required = false }: ISelect) {
+export function Select({
+  list,
+  defaultValue = list[0],
+  text = list[0],
+  name,
+  width,
+  onSelectChange,
+  required = false
+}: ISelect) {
   const [openMenu, setOpenMenu] = useState(false);
   const [inputValue, setInputValue] = useState(defaultValue);
   const [height, setHeight] = useState(0);
@@ -50,7 +58,7 @@ export function Select({ list, defaultValue = list[0], text = list[0], name, wid
 
   const menuButtonClick = (item: string) => {
     setInputValue(item);
-    if(onSelectChange) onSelectChange(item);
+    if (onSelectChange) onSelectChange(item);
     setHeight(0);
     setTimeout(() => {
       setOpenMenu(false)

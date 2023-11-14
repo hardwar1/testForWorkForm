@@ -7,6 +7,8 @@
   width: 100%;
   max-width: 800px;
   transform: translate(-50%, -50%);
+  max-height: calc(100vh - 100px);
+  overflow: auto;
 }
 
 .form {
@@ -66,11 +68,21 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: 500px) {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 20px;
+  }
 }
 
 .labelSchool {
   width: 100%;
   max-width: 180px;
+
+  @media (max-width: 500px) {
+    max-width: 100%;
+  }
 }
 
 .colorsWrapper {
@@ -80,6 +92,10 @@
   align-items: center;
   width: 100%;
   max-width: 230px;
+
+  @media (max-width: 768px) {
+    max-width: 140px;
+  }
 
   &::after {
     content: "";
@@ -105,17 +121,28 @@
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-}
 
-.hoursRow > *[class] {
-  width: max(calc((100% - 40px) / 3), 200px);
+  & > *[class] {
+    width: max(calc((100% - 40px) / 3), 230px);
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+
+    & > *[class] {
+      width: 100%;
+    }
+  }
 }
 
 .daysRow {
   display: flex;
   border: 1px solid #ccc;
   border-radius: 4px;
-  height: 42px;
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+  }
 }
 
 .daysButtons {
@@ -124,12 +151,18 @@
 }
 
 .daysButton {
+  height: 42px;
   padding: 5px;
   border: 0;
   border-right: 1px solid #ccc;
   border-radius: 0;
   min-width: 76px;
   background-color: transparent;
+
+  @media (max-width: 500px) {
+    width: 50%;
+    border-bottom: 1px solid #ccc;
+  }
 }
 
 .selectsRow {
@@ -137,10 +170,22 @@
   gap: 20px;
 
   & > *[class] {
-    width: max(calc(((100% - 40px) / 3) * 2 + 20px), 200px);
+    width: max(calc(((100% - 40px) / 3) * 2 + 20px), 230px);
 
     &:last-child {
-      width: max(calc((100% - 40px) / 3), 200px);
+      width: max(calc((100% - 40px) / 3), 230px);
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+
+    & > *[class] {
+      width: 100%;
+
+      &:last-child {
+        width: 100%;
+      }
     }
   }
 }

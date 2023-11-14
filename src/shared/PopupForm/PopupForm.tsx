@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useRef, useState } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 import { Overlay } from '../Overlay';
 import styles from './popupform.module.scss';
 import { WeekDays } from './WeekDays';
@@ -17,17 +17,42 @@ export const clearWeek = [false, false, false, false, false, false, false];
 const days1 = [true, false, true, false, true, false, false];
 const days2 = [false, true, false, true, false, false, false];
 
-const today = `${(new Date).getFullYear()}-${(new Date).getMonth()}-${(new Date).getDate()}`
+export interface IWeekDays {
+  'ПН'?: boolean,
+  'ВТ'?: boolean,
+  'СР'?: boolean,
+  'ЧТ'?: boolean,
+  'ПТ'?: boolean,
+  'СБ'?: boolean,
+  'ВС'?: boolean
+}
+
+interface ISubmitObject {
+  [key: string]: string | undefined | Date | IWeekDays;
+}
+
+const today = `${(new Date).getFullYear()}-${(new Date).getMonth() + 1}-${(new Date).getDate()}`
 
 export function PopupForm() {
   const [inputColorValue, setInputColorValue] = useState('#ffffff');
   const [weekDaysOn, setWeekDaysOn] = useState(clearWeek);
   const [hourIs, setHourIs] = useState(45);
   const [hoursInDay, setHoursInDay] = useState(1);
+  const [hoursAll, setAllHours] = useState(1);
   const [isBreaks, setIsBreaks] = useState(0);
-  const [weekObj, setWeekObj] = useState<any>({});
+  const [startDate, setStartDate] = useState<Date>();
+  const [finalDate, setFinalDate] = useState<Date>();
+  const [weekObj, setWeekObj] = useState<IWeekDays>({});
 
   const refForm = useRef(null);
+
+  const getStartDate = (start: Date)=> {
+    setStartDate(start);
+  }
+
+  const getFinalDate = (final: Date) =>{
+    setFinalDate(final);
+  }
 
   const closePopup = () => { }
 
@@ -38,20 +63,28 @@ export function PopupForm() {
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const submitObject: any = {};
-    for (const item of e.target as any) {
-      if (item.name && item.name !== 'weekDay') {
+    const submitObject: ISubmitObject = {};
+
+    for (const item of e.currentTarget) {
+      if (item instanceof HTMLInputElement
+        && item.name
+        && item.name !== 'weekDay'
+        && item.name !== 'dateStart'
+        && item.name !== 'dateEnd'
+      ) {
         submitObject[item.name] = item.value;
       }
     }
 
     submitObject.weekDays = weekObj;
-
+    submitObject.finalDate = finalDate;
+    submitObject.startDate = startDate;
     console.log(submitObject);
   }
 
   function setWeek(week: boolean[]) {
-    const obj: any = {}
+    setWeekDaysOn(week);
+    const obj: { [key: string]: boolean } = {}
     for (let i = 0; i < week.length; i++) {
       obj[daysText[i]] = week[i];
     }
@@ -81,6 +114,10 @@ export function PopupForm() {
     if (str === 'C дремотой') {
       setIsBreaks(15)
     }
+  }
+
+  const handleChangeAllHours = (hours: number) => {
+    setAllHours(hours);
   }
 
   return (
@@ -125,7 +162,12 @@ export function PopupForm() {
             <div className={styles.hoursRow}>
               <Select list={hoursListSelect} name='hoursType' onSelectChange={selectChangeHour} />
 
-              <InputNumberItem text="Всего часов" name="totalHours" min={1} />
+              <InputNumberItem
+                text="Всего часов"
+                name="totalHours"
+                min={1}
+                onInputChange={handleChangeAllHours}
+              />
 
               <DoubleDateInput
                 name="date"
@@ -133,6 +175,11 @@ export function PopupForm() {
                 ariaLabelRight="дата окончания"
                 defaultValue={today}
                 inputType='date'
+                hoursInDay={hoursInDay}
+                hoursAll={hoursAll}
+                weekDaysOn={weekDaysOn}
+                getStartDate={getStartDate}
+                getFinalDate={getFinalDate}
               />
 
             </div>
