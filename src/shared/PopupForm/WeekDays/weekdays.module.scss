@@ -16,13 +16,13 @@
   height: 100%;
 }
 
-.checkbox:focus + .day {
-  background-color: rgb(132, 186, 252);
-}
-
 .checkbox:checked + .day {
   background-color: rgb(17, 121, 249);
   color: white;
+}
+
+.checkbox:focus + .day {
+  background-color: rgb(132, 186, 252);
 }
 
 .day {
