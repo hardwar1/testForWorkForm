@@ -11,6 +11,7 @@ interface IDoubleInput {
   hoursInDay: number;
   hoursAll: number;
   weekDaysOn: boolean[];
+  changeWeekDaysOn: (a: boolean) => void;
   getFinalDate: (date: Date) => void;
   getStartDate: (date: Date) => void;
 }
@@ -25,6 +26,7 @@ export function DoubleDateInput({
   weekDaysOn,
   getFinalDate,
   getStartDate,
+  changeWeekDaysOn,
   inputType = "text" }: IDoubleInput) {
   const [startValue, setStartValue] = useState(defaultValue);
   const [endValue, setEndValue] = useState('выберите дни');
@@ -37,10 +39,11 @@ export function DoubleDateInput({
     }
 
     if (studyDaysWeekArray.length < 1) {
-      setEndValue('выберите дни')
+      setEndValue('выберите дни');
+      changeWeekDaysOn(false);
       return
     }
-
+    changeWeekDaysOn(true);
     const calcStudyDays = Math.ceil(hoursAll / hoursInDay);
 
     const [YYYY, MM, DD] = startValue.split('-').map(Number);

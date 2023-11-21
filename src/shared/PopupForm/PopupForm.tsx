@@ -1,4 +1,4 @@
-import { FormEvent, useRef, useState } from 'react';
+import { FormEvent, useEffect, useRef, useState } from 'react';
 import { Overlay } from '../Overlay';
 import styles from './popupform.module.scss';
 import { WeekDays } from './WeekDays';
@@ -43,8 +43,28 @@ export function PopupForm() {
   const [startDate, setStartDate] = useState<Date>();
   const [finalDate, setFinalDate] = useState<Date>();
   const [weekObj, setWeekObj] = useState<IWeekDays>({});
+  const [isWeekDaysOn, setIsWeekDaysOn] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
+  const [height, setHeight] = useState(0);
 
   const refForm = useRef(null);
+  const messageRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (showMessage) {
+      setTimeout(() => {
+        setHeight(messageRef.current?.clientHeight || 0);
+      }, 0);
+    }
+  }, [showMessage, isWeekDaysOn]);
+
+  const changeWeekDaysOn = (a: boolean) => {
+    setIsWeekDaysOn(a);
+    if (a) {
+      setShowMessage(false);
+      setHeight(0)
+    }
+  }
 
   const getStartDate = (start: Date) => {
     setStartDate(start);
@@ -62,6 +82,10 @@ export function PopupForm() {
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (!isWeekDaysOn) {
+      setShowMessage(true);
+      return;
+    }
 
     const submitObject: ISubmitObject = {};
 
@@ -181,6 +205,7 @@ export function PopupForm() {
                 weekDaysOn={weekDaysOn}
                 getStartDate={getStartDate}
                 getFinalDate={getFinalDate}
+                changeWeekDaysOn={changeWeekDaysOn}
               />
 
             </div>
@@ -254,6 +279,16 @@ export function PopupForm() {
             <p className={styles.textBox}>
               Выбор <b>преподавателя</b> и <b>аудитории</b> не обязателен.
             </p>
+
+
+            <div className={styles.hideWrapper} style={{ height: showMessage ? height : 0 }}>
+              <p className={styles.textBox} ref={messageRef}>
+                <b>
+                  Вы не выбрали учебные(рабочие) дни
+                </b>
+              </p>
+            </div>
+
           </div>
 
           <div className={styles.bottom}>
@@ -272,6 +307,7 @@ export function PopupForm() {
       </div>
 
       <Overlay handleClick={closePopup} />
+
     </>
   );
 }
