@@ -65,11 +65,6 @@ export function Select({
     }, 301)
   }
 
-  // del 
-  useEffect(()=>{
-    console.log(inputValue);
-  },[inputValue])
-
   return (
     <div
       className={`${styles.select} ${height > 0 ? styles.selectActive : ''}`}

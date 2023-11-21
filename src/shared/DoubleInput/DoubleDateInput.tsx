@@ -46,7 +46,7 @@ export function DoubleDateInput({
     const [YYYY, MM, DD] = startValue.split('-').map(Number);
 
     const startDay = new Date(YYYY, (MM - 1), DD);
-    getFinalDate(startDay);
+    getStartDate(startDay);
 
     const studyDaysOfThisWeek = studyDaysWeekArray.filter(item => item >= startDay.getDay()).length;
 
@@ -58,9 +58,9 @@ export function DoubleDateInput({
 
       endWeekDay - startDay.getDay();
       const endDate = new Date(YYYY, (MM - 1), DD + endWeekDay - startDay.getDay());
-      getStartDate(endDate);
-      setEndValue(`${endDate.getDate()}.${endDate.getMonth() + 1}.${endDate.getFullYear()}`)
-      
+      getFinalDate(endDate);
+      setEndValue(`${('0' + endDate.getDate()).slice(-2)}.${('0' + (endDate.getMonth() + 1)).slice(-2)}.${endDate.getFullYear()}`);
+
       return;
     }
 
@@ -79,9 +79,9 @@ export function DoubleDateInput({
       + calcStudyWeeks * 7;
 
     const finalDate = new Date(startDay.getTime() + 24 * 60 * 60 * 1000 * calendarDays)
-    setEndValue(`${finalDate.getDate()}.${finalDate.getMonth() + 1}.${finalDate.getFullYear()}`)
-
-    getStartDate(finalDate);
+    
+    setEndValue(`${('0' + finalDate.getDate()).slice(-2)}.${('0' + (finalDate.getMonth() + 1)).slice(-2)}.${finalDate.getFullYear()}`);
+    getFinalDate(finalDate);
 
   }, [hoursInDay, hoursAll, weekDaysOn, startValue]);
 

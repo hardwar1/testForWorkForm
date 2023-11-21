@@ -10,7 +10,6 @@ function App() {
         <Route path='/testForWorkForm/' element={<PopupForm />} />
         <Route path="*" element={<Navigate to="/testForWorkForm/" replace />} />
       </Routes>
-
     </BrowserRouter>
   )
 }

@@ -7,15 +7,16 @@
   width: 100%;
   max-width: 800px;
   transform: translate(-50%, -50%);
-  max-height: calc(100vh - 100px);
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .form {
   border-radius: 10px;
   max-width: 100%;
   background-color: #fff;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  padding-bottom: 20px;
 }
 
 .top {
@@ -166,6 +167,22 @@
   border-radius: 0;
   min-width: 76px;
   background-color: transparent;
+  outline: 0;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+
+  &:focus {
+    color: #fff;
+    background-color: rgb(132, 186, 252);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      color: #fff;
+      background-color: #5ba7d0;
+    }
+  }
 
   @media (max-width: 500px) {
     width: 50%;
@@ -217,8 +234,46 @@
 }
 
 .submit {
-  padding: 5px 10px;
-  border: 2px solid #000;
-  border-radius: 4px;
+  position: relative;
   background-color: transparent;
+  border: 0;
+  padding: 0;
+  z-index: 1;
+  transition: 0.3s;
+  outline: 0;
+
+  span {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #fff;
+    border: 2px solid #000;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s, transform 0.2s, border-color 0.3s;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: #0000003a;
+    z-index: -1;
+    border-radius: 4px;
+  }
+
+  &:focus span {
+    border-color: #028dd8;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover span {
+      color: #fff;
+      background-color: #028dd8;
+      transform: translateY(-3px);
+    }
+  }
+
+  &:active span {
+    transform: translateY(0);
+    transition: background-color 0.3s, color 0.3s, transform 0.01s;
+  }
 }

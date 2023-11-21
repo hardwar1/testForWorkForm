@@ -262,7 +262,9 @@ export function PopupForm() {
             </button>
 
             <button className={styles.submit} type='submit'>
-              Добавить расписание
+              <span>
+                Добавить расписание
+              </span>
             </button>
           </div>
 
