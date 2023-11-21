@@ -46,11 +46,11 @@ export function PopupForm() {
 
   const refForm = useRef(null);
 
-  const getStartDate = (start: Date)=> {
+  const getStartDate = (start: Date) => {
     setStartDate(start);
   }
 
-  const getFinalDate = (final: Date) =>{
+  const getFinalDate = (final: Date) => {
     setFinalDate(final);
   }
 
@@ -75,6 +75,7 @@ export function PopupForm() {
         submitObject[item.name] = item.value;
       }
     }
+    // console.log(e.currentTarget);
 
     submitObject.weekDays = weekObj;
     submitObject.finalDate = finalDate;
@@ -207,7 +208,11 @@ export function PopupForm() {
             </div>
 
             <div className={styles.hoursRow}>
-              <Select list={breaksListSelect} name='isBreaks' onSelectChange={selectChangeBreaks} />
+              <Select
+                list={breaksListSelect}
+                name='breakType'
+                onSelectChange={selectChangeBreaks}
+              />
 
               <InputNumberItem
                 onInputChange={setHoursInDay}

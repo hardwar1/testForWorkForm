@@ -65,6 +65,11 @@ export function Select({
     }, 301)
   }
 
+  // del 
+  useEffect(()=>{
+    console.log(inputValue);
+  },[inputValue])
+
   return (
     <div
       className={`${styles.select} ${height > 0 ? styles.selectActive : ''}`}
@@ -77,7 +82,8 @@ export function Select({
         name={name}
         aria-label=''
         required={required}
-        defaultValue={inputValue}
+        value={inputValue}
+        onChange={()=>{}}
         disabled
       />
 
