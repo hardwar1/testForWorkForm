@@ -2,13 +2,15 @@
   "name": "vite-project",
   "private": true,
   "version": "0.0.0",
+  "homepage": "https://hardwar1.github.io/testForWorkForm/",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "predeploy": "npm run build"
   },
   "dependencies": {
     "react": "^18.2.0",
