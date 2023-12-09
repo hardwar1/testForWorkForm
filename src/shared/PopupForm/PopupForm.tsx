@@ -280,7 +280,6 @@ export function PopupForm() {
               Выбор <b>преподавателя</b> и <b>аудитории</b> не обязателен.
             </p>
 
-
             <div className={styles.hideWrapper} style={{ height: showMessage ? height : 0 }}>
               <p className={styles.textBox} ref={messageRef}>
                 <b>
